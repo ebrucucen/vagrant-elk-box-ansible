@@ -1,0 +1,60 @@
+---
+# mongo db implementeation
+- block:
+
+  - name: 'Add MongoDB apt key'
+    tags: 'mongodb'
+    sudo: 'yes'
+    apt_key: 
+        keyserver: keyserver.ubuntu.com
+        id: 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 
+#3.6 
+
+  - name: 'Install dependencies'
+    tags: 'mongodb'
+    sudo: 'yes'
+    apt: 
+      name: 'python-pycurl' 
+      update_cache: true
+      # Required by Ansible for adding apt repositories
+
+  - name: 'Install MongoDB'
+    tags: 'mongodb'
+    sudo: 'yes'
+    apt: 
+      name: mongodb-org
+      state: present
+      update_cache: true
+
+  - name: 'Ensure backup script directory exists'
+    tags: 'mongodb'
+    sudo: 'yes'
+    file: >
+      path={{ mongodb_backup_script_dir }}
+      state=directory
+      owner=root
+      group=backup
+    when:
+      - mongodb_backup_frequency != 'never'
+
+  - name: 'Install backup script'
+    tags: 'mongodb'
+    sudo: 'yes'
+    template: >
+      src=mongo_dump.sh
+      dest={{ mongodb_backup_script_dir }}/{{ mongodb_backup_script_filename }}
+      owner=root
+      group=backup
+    when:
+      - mongodb_backup_frequency != 'never'
+
+  - name: 'Set up cron job for automated backups'
+    tags: 'mongodb'
+    sudo: 'yes'
+    cron: >
+      name="{{ mongodb_backup_cron_name }}"
+      special_time={{ mongodb_backup_frequency }}
+      job="{{ mongodb_backup_script_dir }}/{{ mongodb_backup_script_filename }}"
+    when:
+      - mongodb_backup_frequency != 'never'
+ 

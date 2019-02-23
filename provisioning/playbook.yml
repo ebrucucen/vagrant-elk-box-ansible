@@ -29,3 +29,68 @@
   tags: kibana
   roles:
     - ansible-kibana
+
+#########################
+# Mongodb install #
+#########################
+
+
+- name: deploy MongoDB and configure the database
+  hosts: 
+    - mongodb
+  user: vagrant
+  tags: mongodb
+  sudo: yes
+  roles:
+    - ansible-mongodb
+
+
+##########################
+## gvm install #
+##########################
+#
+#- hosts: master
+#  sudo: true
+#  tags: gvm
+#  roles:
+#    - ansible-gvm
+#
+##########################
+## stdlib install #
+##########################
+#
+#- hosts: master
+#  sudo: true
+#  tags: stdlib
+#  roles:
+#    - ansible-stdlib
+#
+##########################
+## java install #
+##########################
+#
+#- hosts: master
+#  sudo: true
+#  tags: java
+#  roles:
+#    - ansible-java
+#
+##########################
+## nodejs install #
+##########################
+#
+#- hosts: master
+#  sudo: true
+#  tags: nodejs
+#  roles:
+#    - ansible-nodejs
+#
+##########################
+## wget install #
+##########################
+#
+#- hosts: master
+#  sudo: true
+#  tags: wget
+#  roles:
+#    - ansible-wget

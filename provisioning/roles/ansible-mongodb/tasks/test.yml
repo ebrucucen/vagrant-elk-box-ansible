@@ -1,0 +1,5 @@
+ - name: "res"
+   apt: >
+     package="test"
+   with_items:
+        "sss"

@@ -13,7 +13,7 @@ elasticsearch_node_name: ansible-es-1
 elasticsearch_apt_java_package: oracle-java8-installer
 elasticsearch_service_startonboot: yes
 elasticsearch_plugins:
-  - { name: 'royrusso/elasticsearch-HQ'}
+  - { name: 'mobz/elasticsearch-head'}
 #  - { name: license }
 #- { name: marvel-agent }
 

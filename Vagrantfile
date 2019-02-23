@@ -12,9 +12,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network :forwarded_port, guest: 5601, host: 5601
-  config.vm.network :forwarded_port, guest: 9200, host: 9200
-  config.vm.network :forwarded_port, guest: 9300, host: 9300
+  config.vm.network :forwarded_port, guest: 5601, host: 1234
+  config.vm.network :forwarded_port, guest: 9200, host: 9209
+  config.vm.network :forwarded_port, guest: 9300, host: 9309
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   config.vm.provider :virtualbox do |vb|
